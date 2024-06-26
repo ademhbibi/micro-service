@@ -27,7 +27,7 @@ public class Employe implements Serializable {
         return "Employe{" +
                 "idEmploye=" + idEmploye +
                 ", nomEmploye='" + nomEmploye + '\'' +
-                ", poste='" + poste + '\'' +
+                ", post='" + poste + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
