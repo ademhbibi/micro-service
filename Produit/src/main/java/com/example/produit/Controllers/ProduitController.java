@@ -30,7 +30,7 @@ public class ProduitController {
     @PutMapping("/update")
     public Produit updateProduit(@RequestBody Produit Produit) {
         return produitService.addOrUpdateProduit(Produit);
-    }
+    } 
 
     @DeleteMapping("/delete/{idProduit}")
     public void deleteProduit(@PathVariable int idProduit) {
