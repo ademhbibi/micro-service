@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Produit</name>
     <description>Produit</description>
-    <properties>
+    <properties> 
         <java.version>11</java.version>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
     </properties>
