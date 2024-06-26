@@ -39,18 +39,28 @@ services:
     image: "produit"
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://Eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql_2:3306/ProduitDB?autoReconnect=true&useSSL=false
+      #      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql_2:3306/ProduitDB?autoReconnect=true&useSSL=false
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/ProduitDB
     depends_on:
       - Eureka
-      - docker-mysql_2
+      #      - docker-mysql_2
+      - postgresql
 
-  docker-mysql_2:
-    image: "mysql:5.6"
+  #  docker-mysql_2:
+  #    image: "mysql:5.6"
+  #    environment:
+  #      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+  #      - MYSQL_DATABASE=ProduitDB
+  #    ports:
+  #      - 3302:3306
+  postgresql:
+    image: postgres:latest
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
-      - MYSQL_DATABASE=ProduitDB
+      - POSTGRES_DB=ProduitDB
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
-      - 3302:3306
+      - "5432:5432"
 
   fournisseur:
     build: C:\micro-service\Micro-Service\Fournisseur
@@ -126,3 +136,14 @@ services:
       - "8088:8088"
     depends_on:
       - Eureka
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    ports:
+      - "8180:8180"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - DB_VENDOR=h2
+    command: [ "start-dev", "--http-port=8180" ]
